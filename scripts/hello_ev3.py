@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# This script is for ev3 python version 1.
 from ev3dev.ev3 import *
 import os
 
