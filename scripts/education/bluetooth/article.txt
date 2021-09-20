@@ -1,3 +1,5 @@
 An Introduction to Bluetooth Programming
+
 Albert Huang
+
 https://people.csail.mit.edu/albert/bluez-intro/index.html
