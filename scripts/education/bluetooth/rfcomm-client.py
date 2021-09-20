@@ -26,5 +26,12 @@ if device_count:
     choice = int(input())
     if choice != 0 and choice <= device_count:
         print("you've selected", str(devices_dict[choice][1]))
+        print("connecting to the device...")
+        port = 1
+        address = devices_dict[choice][0]
+        socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+        socket.connect((address, port))
+        socket.send("Hello!")
+        socket.close()
     else:
         print("you've typted 0 or a number that is greater than amount of available devices")
