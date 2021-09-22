@@ -6,7 +6,7 @@ target_address = None
 
 print("scanning for nearby bluetooth devices...")
 print("========================================")
-nearby_devices = bluetooth.discover_devices(duration = 20, lookup_names = True)
+nearby_devices = bluetooth.discover_devices(duration = 10, lookup_names = True)
 
 device_count = len(nearby_devices)
 count = 0
@@ -27,7 +27,7 @@ if device_count:
     if choice != 0 and choice <= device_count:
         print("you've selected", str(devices_dict[choice][1]))
         print("connecting to the device...")
-        port = 1
+        port = 2
         address = devices_dict[choice][0]
         socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
         socket.connect((address, port))
