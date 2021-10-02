@@ -1,25 +1,31 @@
 #!/usr/bin/python3
 
-from bluetooth import *
-#from ev3dev2.sound import Sound
+import bluetooth
+from ev3dev2.sound import Sound
 
-#speaker = Sound()
+# This function is to extract data from the b'data' format
+def roboarm_format_name(name):
+    prefix_removed = str(name).replace("b\'", "")
+    result = prefix_removed.replace("\'", "")
+    return result
 
-server_socket = BluetoothSocket( RFCOMM )
-server_socket.bind(("",PORT_ANY))
+
+# Start of the program
+speaker = Sound()
+
+server_socket = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+server_socket.bind(("",bluetooth.PORT_ANY))
 server_socket.listen(1)
 port = server_socket.getsockname()[1]
 print(server_socket.getsockname())
 print("Listening on port:", port)
 
-#uuid = "ffff"
 uuid = "11111111-1111-1111-1111-111111111111"
-#uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 print("Advertising service EV3_Service...")
-advertise_service(server_socket, "EV3_Service",
-                  service_id = uuid,
-                  service_classes = [ uuid, SERIAL_PORT_CLASS ],
-                  profiles = [ SERIAL_PORT_PROFILE ])
+bluetooth.advertise_service(server_socket, "EV3_Service",
+                            service_id = uuid,
+                            service_classes = [ uuid, bluetooth.SERIAL_PORT_CLASS ],
+                            profiles = [ bluetooth.SERIAL_PORT_PROFILE ])
 
 print("Waiting for connection of RFCOMM channel %d" % port)
 
@@ -30,8 +36,11 @@ while True:
     data = client_socket.recv(1024)
     if len(data) == 0:
         break
+    data = roboarm_format_name(data)
     print("Received:", data)
-    #speaker.speak(str(data))
+    speaker.speak(data)
+    if data == "exit":
+        break
 
 client_socket.close()
 server_socket.close()
