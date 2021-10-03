@@ -2,6 +2,8 @@
 
 import sys
 import bluetooth
+import keyboard
+import time
 
 
 #addr = None
@@ -62,11 +64,18 @@ while choice != "exit":
                     continue
 
                 while True:
-                    print("Enter some message:")
-                    message = str(input())
+                    #print("Enter some message:")
+                    message = "idle"
+                    if keyboard.is_pressed('up'):
+                        message = "up"
+                    if keyboard.is_pressed('down'):
+                        message = "down"
+                    if keyboard.is_pressed('esc'):
+                        message = "esc"
                     client_socket.send(message)
-                    if message == "exit":
+                    if message == "esc":
                         break
+                    time.sleep(0.5)
 
                 client_socket.close()
         
