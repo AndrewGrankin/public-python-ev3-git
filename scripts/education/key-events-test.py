@@ -1,4 +1,4 @@
-##!/usr/bin/python3
+#!/usr/bin/python3
 
 import time
 import keyboard
@@ -6,4 +6,7 @@ import keyboard
 while True:
     if keyboard.is_pressed('up'):
         print("up")
-    elif keyboard
+    elif keyboard.is_pressed('down'):
+        print("down")
+    elif keyboard.is_pressed('esc'):
+        break

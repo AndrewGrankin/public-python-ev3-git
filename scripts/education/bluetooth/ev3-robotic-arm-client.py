@@ -2,7 +2,7 @@
 
 import sys
 import bluetooth
-import keyboard
+import keyboard # TODO: try to use (check) "tkinter" instead
 import time
 
 
